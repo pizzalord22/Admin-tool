@@ -13,8 +13,8 @@ concommand.Add( "admin_menu", function()
 
     --- set the color for the buttons
     local textColor = Color( 255, 255, 255 )
-    local offColor = Color( 53, 70, 175 )
-    local onColor = Color( 84, 216, 42 )
+    local offColor = Color( 200, 200, 200 )
+    local onColor = Color( 255, 255, 255 )
 
     --- create row vars ( y distance in pixels )
     local rowOne = 30
@@ -26,7 +26,8 @@ concommand.Add( "admin_menu", function()
     local lineTwo = 120
     --- local lineThree = 230
 
-    AdminFont = "Trebuchet20"
+    local buttonColor = Color( 0,0,255 )
+    local AdminFont = "Trebuchet24"
 
     local Frame = vgui.Create("DFrame" )
     Frame:SetTitle( "Admin tool made by Pizza" )
@@ -51,15 +52,24 @@ concommand.Add( "admin_menu", function()
     end
     godmodeButton:SetFont( AdminFont )
     godmodeButton:SetPos( lineOne, rowOne)
-    godmodeButton:SetSize( 100, 30)
+    godmodeButton:SetSize( 130, 30)
     godmodeButton.Paint = function()
-        draw.RoundedBox( 0, 0, 0, Frame:GetWide(), Frame:GetTall(), Color( 30,25,25 ))
+        draw.RoundedBox( 0, 0, 0, Frame:GetWide(), Frame:GetTall(), buttonColor)
     end
 
     local noclipButton = vgui.Create( "DButton", Frame)
     if GetConVarNumber( "noclip" ) == 0 then
         noclipButton:SetText( "noclip ON" )
         noclipButton:SetTextColor( onColor )
+    elseif GetConVarNumber( "noclip" ) == 1 then
+        noclipButton:SetText( "noclip oFF" )
+        noclipButton:SetTextColor( offColor )
+    end
+    noclipButton:SetFont( AdminFont )
+    noclipButton:SetPos(lineOne, rowTwo)
+    noclipButton:SetSize( 130,30 )
+    noclipButton.Paint = function()
+        draw.RoundedBox( 0, 0, 0, Frame:GetWide(), Frame:GetTall(), buttonColor)
     end
 
     -- button actions
@@ -77,5 +87,3 @@ concommand.Add( "admin_menu", function()
         end
     end
 end)
-
-print( "admin tool loaded" )
